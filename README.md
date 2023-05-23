@@ -1,5 +1,8 @@
 # Microblog
 
-This repository is meant to help better my flask skills.
-It is a simple microblog app.
-Link to the tutorial I am following can be found [here](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world).
+A simple blog application built entirely using Flask framework.
+
+Special thanks to [Miguel Grinberg](https://github.com/miguelgrinberg) for
+the very informative [tutorial](https://blog.miguelgrinberg.com/post/the-flask-mega-tutorial-part-i-hello-world).
+
+>[\#100-days-of-code](https://www.100daysofcode.com/)
