@@ -9,7 +9,7 @@ from wtforms.validators import DataRequired
 class LoginForm(FlaskForm):
     """Form for User login to microblog web app"""
 
-    username = StringField('username', validators=[DataRequired()])
-    password = PasswordField('password', validators=[DataRequired()])
+    username = StringField('Username', validators=[DataRequired()])
+    password = PasswordField('Password', validators=[DataRequired()])
     remember_me = BooleanField('Remember Me')
     submit = SubmitField('Sign in')
