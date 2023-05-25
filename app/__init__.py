@@ -5,7 +5,7 @@
 from flask import Flask
 from config import Config
 
-app = Flask(__name__)
-app.config.from_object(Config)
+app = Flask(__name__) # This helps flask locate resources
+app.config.from_object(Config) # Points Flask to the class with config settings
 
-from app import routes
+from app import routes # This is done to prevent circular imports
