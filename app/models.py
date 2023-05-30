@@ -2,13 +2,14 @@
 
 """Contains model classes for the blog app"""
 
-from app import db
+from app import db, login
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
+from werkzeug.security import check_password_hash, generate_password_hash
+from flask_login import UserMixin
 
-
-class User(db.Model):
+class User(UserMixin, db.Model):
     """Represents users of the blog app"""
 
     id = db.Column(db.Integer, primary_key=True)
@@ -21,6 +22,29 @@ class User(db.Model):
         """Internal representation of objects of this class"""
 
         return f'[User] (username={self.username} email={self.email})'
+
+    def set_password(self, password):
+        """Hashes password and stores the hash generated in the object"""
+        self.password_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        """Check the password entered against the hash stored in the object
+
+        Returns
+        -------
+        boolean - True if matche, False otherwise
+        """
+        return check_password_hash(self.password_hash,password)
+
+@login.user_loader
+def load_user(id):
+    """Loads user from the databse given the ID
+
+    This is a helper function to `flask-login` that helps in loading a user
+    from the database given the ID. Needed because `flask-login` knows nothing
+about databses.
+    """
+    return User.query.get(int(id))
 
 class Post(db.Model):
     """Represents a Blog post created by User of blog app"""
