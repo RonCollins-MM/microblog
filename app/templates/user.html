@@ -2,13 +2,23 @@
 
 {% block content %}
 
-    <h1>User: {{ user.username }}</h1>
+    <table>
+        <tr valign="top">
+            <td><img src="{{ user.generate_avatar(128) }}" alt="usr_prof_pic"></td>
+            <td>
+                <h1>User: {{ user.username }}</h1>
+                {% if user.about_me %} <p>{{ user.about_me }}</p> {% endif %}
+                {% if user.last_seen %} <p>You last visited this site on: {{ user.last_seen }}</p> {% endif %}
+                {% if user == current_user %}
+                    <p><a href="{{ url_for('edit_profile') }}">Edit Profile</a></p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
     <hr>
 
     {% for post in posts %}
-    <p>
-        <b>{{ post.author.username }}</b> says: {{ post.body }}
-    </p>
+        {% include '_post.html' %}
     {% endfor %}
 
 {% endblock %}

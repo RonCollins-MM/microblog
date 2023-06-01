@@ -3,8 +3,20 @@
 """Module that contains the Forms for microblog app"""
 
 from flask_wtf import FlaskForm
-from wtforms import PasswordField, StringField, BooleanField, SubmitField
-from wtforms.validators import DataRequired, ValidationError, Email, EqualTo
+from wtforms import (
+    PasswordField,
+    StringField,
+    BooleanField,
+    SubmitField,
+    TextAreaField,
+)
+from wtforms.validators import (
+    DataRequired,
+    ValidationError,
+    Email,
+    EqualTo,
+    Length,
+)
 from app.models import User
 
 class LoginForm(FlaskForm):
@@ -36,3 +48,10 @@ class RegistrationForm(FlaskForm):
         email = User.query.filter_by(email=email.data).first()
         if email:
             raise ValidationError('User with that email already exists !!')
+
+class EditProfileForm(FlaskForm):
+    """Form to allow Users to make changes to their profile"""
+
+    username = StringField('Username', validators=[DataRequired()])
+    about_me = TextAreaField('About Me', validators=[Length(min=0, max=140)])
+    submit = SubmitField('Submit')
